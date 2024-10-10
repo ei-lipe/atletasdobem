@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem de Artigos Esportivos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #99ccf5; /* Azul Marinho */
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #003366; /* Azul Marinho */
+        }
+
+        h2 {
+            color: #003366; /* Azul Marinho */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-bar input, .filters select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+        }
+
+        .category-container {
+            margin-bottom: 30px;
+        }
+
+        .category-title {
+            background-color: #003366; /* Azul Marinho */
+            padding: 10px;
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .article-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .article-item {
+            background-color: #ffffff; /* Branco */
+            color: #003366; /* Azul Marinho */
+            width: calc(33.333% - 20px);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .article-item h3 {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .article-item p {
+            margin: 5px 0;
+        }
+
+        .article-item button {
+            background-color: #ff6600; /* Laranja */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .article-item button:hover {
+            background-color: #e55b00; /* Tom mais escuro de laranja */
+        }
+
+        .detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #ffffff; /* Branco */
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 100%;
+            color: #003366; /* Azul Marinho */
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+        }
+
+        .close-button {
+            background-color: #ff6600; /* Laranja */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .close-button:hover {
+            background-color: #e55b00;
+        }
+
+        /* Botão no canto superior direito */
+        .top-right-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff6600; /* Laranja */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .top-right-button:hover {
+            background-color: #e55b00;
+        }
+
+    </style>
+    <script>
+        function openModal(articleId) {
+            document.getElementById('detail-modal').style.display = 'flex';
+            // Aqui, você pode carregar os detalhes do artigo baseado no articleId
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Botão no canto superior direito -->
+        <a href="novologim2.html" class="top-right-button">Cadastre sua doação</a>
+
+        <h1>Listagem de Artigos Esportivos</h1>
+
+        <!-- Categorias de Artigos -->
+        <div class="category-container" id="esportes-coletivos">
+            <div class="category-title">Esportes Coletivos</div>
+            <div class="article-list"></div>
+        </div>
+
+        <div class="category-container" id="esportes-individuais">
+            <div class="category-title">Esportes Individuais</div>
+            <div class="article-list"></div>
+        </div>
+
+        <div class="category-container" id="esportes-aquaticos">
+            <div class="category-title">Esportes Aquáticos</div>
+            <div class="article-list"></div>
+        </div>
+
+        <div class="category-container" id="esportes-aventura">
+            <div class="category-title">Esportes de Aventura</div>
+            <div class="article-list"></div>
+        </div>
+
+        <div class="category-container" id="diversos">
+            <div class="category-title">Diversos</div>
+            <div class="article-list"></div>
+        </div>
+
+
+        <!-- Modal de Detalhes -->
+        <div id="detail-modal" class="detail-modal" onclick="closeModal()">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <h3>Detalhes do Artigo</h3>
+                <p>Descrição completa do artigo.</p>
+                <p>Condição: Novo</p>
+                <p>Localização: Norte</p>
+                <button class="close-button" onclick="closeModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="navbar"></div>
+
+    <div class="container">
+      <!-- O conteúdo da sua página vai aqui -->
+    </div>
+    
+    <!-- Scripts JS aqui -->
+    <script>
+    
+        async function carregarProdutos() {
+            try {
+                const response = await fetch('http://localhost:3000/produtos');
+                const produtos = await response.json();
+
+                // Seleciona os containers das categorias
+                const coletivosContainer = document.querySelector('#esportes-coletivos .article-list');
+                const individuaisContainer = document.querySelector('#esportes-individuais .article-list');
+                const aquaticosContainer = document.querySelector('#esportes-aquaticos .article-list');
+                const aventuraContainer = document.querySelector('#esportes-aventura .article-list');
+                const diversosContainer = document.querySelector('#diversos .article-list');
+
+                // Limpa o conteúdo anterior das listas
+                coletivosContainer.innerHTML = '';
+                individuaisContainer.innerHTML = '';
+                aquaticosContainer.innerHTML = '';
+                aventuraContainer.innerHTML = '';
+                diversosContainer.innerHTML = '';
+
+                // Itera sobre a lista de produtos recebidos
+                produtos.forEach(produto => {
+                const articleItem = document.createElement('div');
+                articleItem.classList.add('article-item');
+
+                // Adiciona a imagem do produto
+                const img = document.createElement('img');
+                img.src = `http://localhost:3000/uploads/${produto.imagem}`; // Caminho da imagem
+                img.alt = produto.nome_artigo; // Atualizado para nome_artigo
+                img.style.minHeight = '500px'
+                articleItem.appendChild(img);
+
+                // Adiciona o nome do produto
+                const h3 = document.createElement('h3');
+                h3.textContent = produto.nome_artigo; // Atualizado para nome_artigo
+                articleItem.appendChild(h3);
+
+                // Adiciona a quantidade
+                const quantidadeP = document.createElement('p');
+                quantidadeP.textContent = `Quantidade: ${produto.quantidade}`;
+                articleItem.appendChild(quantidadeP);
+
+                // Adiciona o tamanho
+                const tamanhoP = document.createElement('p');
+                tamanhoP.textContent = `Tamanho: ${produto.tamanho}`;
+                articleItem.appendChild(tamanhoP);
+
+                // Adiciona a condição
+                const condicaoP = document.createElement('p');
+                condicaoP.textContent = `Condição: ${produto.condicao}`;
+                articleItem.appendChild(condicaoP);
+
+                // Adiciona a descrição do produto
+                const descricaoP = document.createElement('p');
+                descricaoP.textContent = `Descrição: ${produto.descricao}`; // Adicionando descrição
+                articleItem.appendChild(descricaoP);
+
+                
+
+                // Insere o produto no container da categoria correta
+                switch (produto.categoria) {
+                    case 'coletivos':
+                        coletivosContainer.appendChild(articleItem);
+                        break;
+                    case 'individuais':
+                        individuaisContainer.appendChild(articleItem);
+                        break;
+                    case 'aquaticos':
+                        aquaticosContainer.appendChild(articleItem);
+                        break;
+                    case 'aventura':
+                        aventuraContainer.appendChild(articleItem);
+                        break;
+                    case 'diversos':
+                        diversosContainer.appendChild(articleItem);
+                        break;
+                    default:
+                        console.error('Categoria não reconhecida:', produto.categoria);
+                }
+            });
+
+                // Esconde as categorias se não houver produtos nelas
+                verificarCategoriaVazia('#esportes-coletivos', coletivosContainer);
+                verificarCategoriaVazia('#esportes-individuais', individuaisContainer);
+                verificarCategoriaVazia('#esportes-aquaticos', aquaticosContainer);
+                verificarCategoriaVazia('#esportes-aventura', aventuraContainer);
+                verificarCategoriaVazia('#diversos', diversosContainer);
+
+            } catch (error) {
+                console.error('Erro ao carregar produtos:', error);
+            }
+        }
+
+        // Função para verificar se uma categoria está vazia e esconder a seção correspondente
+        function verificarCategoriaVazia(categoriaId, container) {
+            const categoriaContainer = document.querySelector(categoriaId);
+            if (container.children.length === 0) {
+                categoriaContainer.style.display = 'none'; // Esconde a categoria se estiver vazia
+            } else {
+                categoriaContainer.style.display = 'block'; // Mostra a categoria se houver produtos
+            }
+        }
+
+        // Função para abrir o modal de detalhes do produto
+        function openModal(produtoId) {
+            const modal = document.getElementById('detail-modal');
+            modal.style.display = 'flex';
+
+            // Aqui, você pode fazer outra requisição para obter mais detalhes do produto, se necessário
+            // Ou você pode exibir os detalhes diretamente se já os tiver.
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            const modal = document.getElementById('detail-modal');
+            modal.style.display = 'none';
+        }
+
+        // Chama a função para carregar os produtos ao carregar a página
+        window.onload = carregarProdutos;
+
+    
+    </script>
+
+</body>
+</html>
