@@ -111,7 +111,7 @@ app.post('/cadastro/pessoa-juridica', async (req, res) => {
     
     // Inserindo no banco de dados com a senha hashada
     await pool.query(query, [cnpj, razaoSocial, email, hashedPassword]);
-    res.status(200).json({ message: 'Cadastro de Pessoa Jurídica realizado com sucesso!' });
+    res.status(200).json({ message: 'Cadastro de Pessoa Jurídica realizado com sucesso!!' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Erro ao realizar o cadastro de Pessoa Jurídica' });
