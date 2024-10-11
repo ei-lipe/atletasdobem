@@ -207,7 +207,7 @@
             // Enviando os dados para o servidor
             console.log(JSON.stringify(userData))
             if (tipo === 'PF') { 
-                fetch('http://localhost:3000/cadastro/pessoa-fisica', {
+                fetch('https://atletasdobem-web.onrender.com/cadastro/pessoa-fisica', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -231,7 +231,7 @@
                     alert('Ocorreu um erro ao cadastrar. Tente novamente.');
                 });
             }else {
-                fetch('http://localhost:3000/cadastro/pessoa-juridica', {
+                fetch('https://atletasdobem-web.onrender.com/cadastro/pessoa-juridica', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -263,7 +263,7 @@
                 senha: document.getElementById('loginSenha').value,
             };
 
-            fetch('http://localhost:3000/login', {
+            fetch('https://atletasdobem-web.onrender.com/login', {
                 method: 'POST', // Alterado para POST
                 headers: {
                     'Content-Type': 'application/json',

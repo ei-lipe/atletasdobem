@@ -233,7 +233,7 @@
     
         async function carregarProdutos() {
             try {
-                const response = await fetch('http://localhost:3000/produtos');
+                const response = await fetch('https://atletasdobem-web.onrender.com/produtos');
                 const produtos = await response.json();
 
                 // Seleciona os containers das categorias
@@ -257,7 +257,7 @@
 
                 // Adiciona a imagem do produto
                 const img = document.createElement('img');
-                img.src = `http://localhost:3000/uploads/${produto.imagem}`; // Caminho da imagem
+                img.src = `https://atletasdobem-web.onrender.com/uploads/${produto.imagem}`; // Caminho da imagem
                 img.alt = produto.nome_artigo; // Atualizado para nome_artigo
                 img.style.minHeight = '500px'
                 articleItem.appendChild(img);
