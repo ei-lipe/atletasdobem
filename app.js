@@ -4,6 +4,13 @@ const { Pool } = require('pg');
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
+const fs = require('fs');
+
+// Certifica que o diretório 'uploads' existe
+const uploadPath = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath);
+}
 
 // Configurações do banco de dados PostgreSQL
 const pool = new Pool({
